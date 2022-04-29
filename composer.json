@@ -1,0 +1,25 @@
+{
+    "name": "luisj/base-module",
+    "description": "Creador de modulo base Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luis Jesus",
+            "email": "luisjesusavilesmorales7@gmail.com"
+        }  
+    ],
+    "require": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laravel\\BaseModule\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laravel\\BaseModule\\Tests\\": "src"
+        }
+    } 
+}
