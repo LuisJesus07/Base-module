@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace LuisJ\BaseModule\Console;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Facades\Artisan;
@@ -80,13 +80,13 @@ class ResourceControllerCommand extends GeneratorCommand
     protected function getStub()
     {
         if($this->argument('is_user') == "true"){
-            return  app_path() . '/stubs/resourse-controller-user.stub';
+            return  '../../stubs/resourse-controller-user.stub';
         }else{
             if($this->argument('has_cover') == "true"){
-                return  app_path() . '/stubs/resourse-controller-cover.stub'; 
+                return  '../../stubs/resourse-controller-cover.stub'; 
             }
 
-            return  app_path() . '/stubs/resourse-controller.stub';
+            return  '../../stubs/resourse-controller.stub';
         }
         
     }

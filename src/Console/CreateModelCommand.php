@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace LuisJ\BaseModule\Console;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Facades\Schema;
@@ -76,7 +76,7 @@ class CreateModelCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  app_path() . '/stubs/model.stub';
+        return  '../../stubs/model.stub';
     }
 
     /**

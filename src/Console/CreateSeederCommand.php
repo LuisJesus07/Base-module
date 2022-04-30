@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace LuisJ\BaseModule\Console;
 
 use Illuminate\Console\GeneratorCommand;
 
@@ -61,7 +61,7 @@ class CreateSeederCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  app_path() . '/stubs/seeder.stub';
+        return  '../../stubs/seeder.stub';
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace LuisJ\BaseModule\Console;
 
 use Illuminate\Console\GeneratorCommand;
 
@@ -48,7 +48,7 @@ class CreateMailViewCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  app_path() . '/stubs/mail-html.blade.stub';
+        return  '../../stubs/mail-html.blade.stub';
     }
 
     /**

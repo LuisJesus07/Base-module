@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Laravel\\BaseModule\\": "src"
+            "LuisJ\\BaseModule\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Laravel\\BaseModule\\Tests\\": "src"
+            "LuisJ\\BaseModule\\Tests\\": "src"
         }
     } 
 }

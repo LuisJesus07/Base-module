@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace LuisJ\BaseModule\Console;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Facades\Artisan;
@@ -65,7 +65,7 @@ class CreateMailCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  app_path() . '/stubs/mail.stub';
+        return  '../../stubs/mail.stub';
     }
 
     /**

@@ -1,19 +1,19 @@
 <?php 
 
-namespace Laravel\BaseModule;
+namespace LuisJ\BaseModule;
 
 use Illuminate\Support\ServiceProvider;
-use Laravel\BaseModule\Console\ResourceControllerCommand;
-use Laravel\BaseModule\Console\CreateModelCommand;
-use Laravel\BaseModule\Console\CreateFactoryCommand;
-use Laravel\BaseModule\Console\CreateSeederCommand;
-use Laravel\BaseModule\Console\CreateMailCommand;
-use Laravel\BaseModule\Console\CreateMailViewCommand;
+use LuisJ\BaseModule\Console\ResourceControllerCommand;
+use LuisJ\BaseModule\Console\CreateModelCommand;
+use LuisJ\BaseModule\Console\CreateFactoryCommand;
+use LuisJ\BaseModule\Console\CreateSeederCommand;
+use LuisJ\BaseModule\Console\CreateMailCommand;
+use LuisJ\BaseModule\Console\CreateMailViewCommand;
 
 /**
  * 
  */
-class ClassName extends ServiceProvider
+class BaseModuleServiceProvider extends ServiceProvider
 {
 	/**
      * Bootstrap services.
