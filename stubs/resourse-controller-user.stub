@@ -1,0 +1,218 @@
+<?php
+
+namespace App\Http\Controllers\Web;
+
+use App\Http\Controllers\Controller;
+use App\Helpers\AppHelper as Helper;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Models\User;
+use App\Models\{{model}};
+
+class ResourseController extends Controller
+{
+    public $breadcrum_info = array(
+        "main_title" => "{{modulo}}",
+        "second_level" => "",
+        "add_button" => true,
+        "ref" => "{{ref}}"
+    );
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $breadcrum_info = $this->breadcrum_info;
+        ${{var-plural}} = {{model}}::with('user:id,name,email')
+                          ->orderBy('created_at', 'DESC')
+                          ->get();
+
+        #return ${{var-plural}};
+        $this->createLog("consultar", null, "{{log-plural}}", "{{route}}", null);
+        return view('admin.{{folder-view}}.index',compact('{{var-plural}}','breadcrum_info'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request['password'] = isset($request->password) ? bcrypt($request->password) : bcrypt("12345678");
+        $request['role_id'] = 2;
+        $user = User::create($request->all());
+        $user->assignRole($user->role_id);
+
+        $request['user_id'] = $user->id;
+        ${{var-singular}} = {{model}}::create($request->all());
+
+        //subir cover
+        if($request->hasFile('profile_photo_file')){
+            ${{var-singular}}->load('user');
+            $name_file = Helper::store_file($request,$request->file('profile_photo_file'),${{var-singular}}->user,"{{folder-view}}",null);
+            ${{var-singular}}->user->profile_photo_path = $name_file;
+            ${{var-singular}}->user->save();
+        }
+
+        $this->createLog("registrar", ${{var-singular}}, "{{log-singular}}", "{{route}}", ${{var-singular}}->id);
+        return redirect()->back()->with('success', 'ok');
+        
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $breadcrum_info = $this->breadcrum_info;
+        $breadcrum_info['second_level'] = 'Detalle de {{modulo}}';
+        $breadcrum_info['add_button'] = false;
+
+        ${{var-singular}} = {{model}}::where('id',$id)
+                            ->with('user:id,name,email')
+                            ->firstOrFail();
+
+        #return ${{var-singular}};
+        $this->createLog("consultar", ${{var-singular}}, "{{log-singular}}", "{{route}}", $id);
+        return view('admin.{{folder-view}}.details',compact('{{var-singular}}','breadcrum_info'));
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get($id)
+    {
+        ${{var-singular}} = {{model}}::where('id',$id)
+                            ->with('user:id,name,email')
+                            ->firstOrFail();
+
+        $this->createLog("consultar", ${{var-singular}}, "{{log-singular}}", "{{route}}", $id);
+        return $this->jsonResponse("Registro consultado correctamente", ${{var-singular}}, Response::HTTP_OK, null);
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        ${{var-singular}} = {{model}}::where('id',$request->id)
+                            ->with('user')
+                            ->firstOrFail();
+
+        ${{var-singular}}->fill($request->all());
+
+        //subir nuevo archivo
+        if($request->hasFile('profile_photo_file')){
+            ${{var-singular}}->load('user');
+            //eliminar archivo anterior
+            $path = Helper::delete_file(${{var-singular}}->user,"profile_photo_path","{{folder-view}}");
+
+            if($path){
+                ${{var-singular}}->user->profile_photo_path = null;
+            }
+
+            //new avatar
+            $name_file = Helper::store_file($request,$request->file('profile_photo_file'),${{var-singular}}->user,"{{folder-view}}",null);
+            ${{var-singular}}->user->profile_photo_path = $name_file;
+        }
+
+        ${{var-singular}}->user->fill($request->all());
+
+        ${{var-singular}}->push();
+
+        $this->createLog("actualizar", ${{var-singular}}, "{{log-singular}}", "{{route}}", ${{var-singular}}->id);
+        return redirect()->back()->with('message', 'success');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        ${{var-singular}} = {{model}}::where('id',$id)
+                            ->with('user')
+                            ->firstOrFail();
+
+        ${{var-singular}}->delete();
+        ${{var-singular}}->user->delete();
+        
+        //eliminar cover
+        $path = Helper::delete_file(${{var-singular}}->user,"cover_path","{{folder-view}}");
+
+        if($path){
+            ${{var-singular}}->user->cover_path = null;
+        }
+
+        $this->createLog("eliminar", ${{var-singular}}, "{{log-singular}}", "{{route}}", $id);
+        return $this->jsonResponse("Registro Eliminado correctamente", null, Response::HTTP_OK, null);
+        
+    }
+
+    {{belongs_to_many_functions}}
+
+    ////////////////////////rutas y permisos(copiar y borrar)
+    
+    //{{log-plural}}
+    Permission::create([
+        'name' => '{{ref}}.get', 
+        'description' => 'Ver {{log-plural}}', 
+        'module' => '{{modulo}}'
+    ]);
+
+    Permission::create([
+        'name' => '{{ref}}.edit', 
+        'description' => 'Editar {{log-plural}}', 
+        'module' => '{{modulo}}'
+    ]);
+
+    Permission::create(['name' => '{{ref}}.add', 
+        'description' => 'Crear {{log-plural}}', 
+        'module' => '{{modulo}}'
+    ]);
+
+    Permission::create(['name' => '{{ref}}.delete', 
+        'description' => 'Eliminar {{log-plural}}', 
+        'module' => '{{modulo}}'
+    ]);
+
+    '{{ref}}.get',
+    '{{ref}}.edit',
+    '{{ref}}.add',
+    '{{ref}}.delete',
+
+    use App\Http\Controllers\Web\{{model}}Controller;
+    
+    //rutas {{log-plural}}
+    Route::get('{{route}}', [{{model}}Controller::class, 'index'])->middleware('permission:{{ref}}.get')->name('{{route}}');
+    Route::post('{{route}}', [{{model}}Controller::class, 'store'])->middleware('permission:{{ref}}.add')->name('{{route}}.store');
+    Route::get('{{route}}/{id}', [{{model}}Controller::class, 'show'])->middleware('permission:{{ref}}.get')->name('{{route}}.show');
+    Route::get('{{route}}/get/{id}', [{{model}}Controller::class, 'get'])->middleware('permission:{{ref}}.get')->name('{{route}}.get');
+    Route::put('{{route}}', [{{model}}Controller::class, 'update'])->middleware('permission:{{ref}}.edit')->name('{{route}}.edit');
+    Route::delete('{{route}}/{id}', [{{model}}Controller::class, 'destroy'])->middleware('permission:{{ref}}.delete')->name('{{route}}.destroy');
+
+    ////////////////////////rutas y permisos(copiar y borrar)
+
+
+
+}
