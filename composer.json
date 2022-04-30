@@ -10,9 +10,7 @@
         }  
     ],
     "require": {
-        "phpunit/phpunit": "^9.5",
-        "illuminate/console": "^9.10",
-        "illuminate/support": "^9.10"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
