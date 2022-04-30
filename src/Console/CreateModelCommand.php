@@ -76,7 +76,7 @@ class CreateModelCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  '../../stubs/model.stub';
+        return  base_path() . '/vendor/luisj/base-module/stubs/model.stub';
     }
 
     /**

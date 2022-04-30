@@ -80,13 +80,13 @@ class ResourceControllerCommand extends GeneratorCommand
     protected function getStub()
     {
         if($this->argument('is_user') == "true"){
-            return  '../../stubs/resourse-controller-user.stub';
+            return  base_path() . '/vendor/luisj/base-module/stubs/resourse-controller-user.stub';
         }else{
             if($this->argument('has_cover') == "true"){
-                return  '../../stubs/resourse-controller-cover.stub'; 
+                return  base_path() . '/vendor/luisj/base-module/stubs/resourse-controller-cover.stub'; 
             }
 
-            return  '../../stubs/resourse-controller.stub';
+            return  base_path() . '/vendor/luisj/base-module/stubs/resourse-controller.stub';
         }
         
     }

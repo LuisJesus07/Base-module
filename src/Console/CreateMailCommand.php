@@ -65,7 +65,7 @@ class CreateMailCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  '../../stubs/mail.stub';
+        return  base_path() . '/vendor/luisj/base-module/stubs/mail.stub';
     }
 
     /**

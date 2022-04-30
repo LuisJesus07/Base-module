@@ -61,7 +61,7 @@ class CreateSeederCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  '../../stubs/seeder.stub';
+        return  base_path() . '/vendor/luisj/base-module/stubs/seeder.stub';
     }
 
     /**

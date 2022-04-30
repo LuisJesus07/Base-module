@@ -48,7 +48,7 @@ class CreateMailViewCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  '../../stubs/mail-html.blade.stub';
+        return  base_path() . '/vendor/luisj/base-module/stubs/mail-html.blade.stub';
     }
 
     /**

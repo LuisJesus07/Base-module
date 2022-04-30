@@ -75,7 +75,7 @@ class CreateFactoryCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return '../../stubs/factory.stub';
+        return base_path() . '/vendor/luisj/base-module/stubs/factory.stub';
     }
 
     /**
