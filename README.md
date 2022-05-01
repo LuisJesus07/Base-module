@@ -18,9 +18,10 @@ Una vez instalada, agrega en el array de providers (config/app.php) la clase:
 ```php
 LuisJ\BaseModule\BaseModuleServiceProvider::class,
 ```
-Luego, publica el archivo de configuraciones:
+Luego, publica el archivo de configuraciones y recarga la cache:
 ```bash
 php artisan vendor:publish --tag="luisj-base-module-config"
+php artisan config:clear
 ```
 Por ultimo, en el archivo .env agrega la siguiente variable:
 ```env
