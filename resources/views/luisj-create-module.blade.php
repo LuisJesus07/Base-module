@@ -10,12 +10,6 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-        <!-- Scripts -->
-        @routes
-        <script src="{{ mix('js/app.js') }}" defer></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
@@ -28,7 +22,7 @@
     <body class="font-sans antialiased">
       
           <div class="container">
-            <form class="well form-horizontal" action="{{ route('create.module') }}" method="POST">
+            <form class="well form-horizontal" action="{{ route('luisj.create.module') }}" method="POST">
                 @csrf
                 <fieldset>
                   <!-- Form Name -->

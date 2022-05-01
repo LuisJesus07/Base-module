@@ -5,8 +5,8 @@ use LuisJ\BaseModule\Http\Controllers\BaseModuleController;
 
 //vista para crear modulo desde form
 Route::get('luisj/base-module/create', function() {
-    return view('luisj-create-module');
+    return view('luisj-create-module::create-module');
 });
 
 //ruta crear modulo
-Route::post('create-module', [BaseModuleController::class, 'create_module']);
+Route::post('create-module', [BaseModuleController::class, 'create_module'])->name('luisj.create.module');

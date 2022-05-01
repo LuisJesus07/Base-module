@@ -27,15 +27,13 @@ class BaseModuleServiceProvider extends ServiceProvider
 
     private function loadCommands(): void
 	{
-	    if ($this->app->runningInConsole()) {
-	        $this->commands([
-	            ResourceControllerCommand::class,
-		        CreateModelCommand::class,
-		        CreateFactoryCommand::class,
-		        CreateSeederCommand::class,
-		        CreateMailCommand::class,
-		        CreateMailViewCommand::class,
-	        ]);
-	    }
+        $this->commands([
+            ResourceControllerCommand::class,
+	        CreateModelCommand::class,
+	        CreateFactoryCommand::class,
+	        CreateSeederCommand::class,
+	        CreateMailCommand::class,
+	        CreateMailViewCommand::class,
+        ]);
 	}
 }

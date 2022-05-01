@@ -2,9 +2,9 @@
 
 namespace LuisJ\BaseModule\Http\Controllers;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 
 class BaseModuleController extends Controller
 {
