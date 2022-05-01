@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'base-module-status' => env('BASE_MODULE_STATUS', 'inactive'),
+    'status' => env('LUISJ_BASE_MODULE_STATUS', 'inactive'),
 
 
 ];

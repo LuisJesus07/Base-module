@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use LuisJ\BaseModule\Http\Controllers\BaseModuleController;
 
 //verifica si la libreria esta activa
-$enableViews = config('base-module-status', 'inactive');
+$enableViews = config('luisj-base-module.status', 'inactive');
 
 if($enableViews == "active"){
 	//vista para crear modulo desde form

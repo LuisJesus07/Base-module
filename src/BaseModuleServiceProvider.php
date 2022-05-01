@@ -32,7 +32,7 @@ class BaseModuleServiceProvider extends ServiceProvider
 	{
 	    $this->publishes(
 	        [
-	            base_path() . '/vendor/luisj/base-module/config/luisj-base-module.php' => config_path('something.php'),
+	            base_path() . '/vendor/luisj/base-module/config/luisj-base-module.php' => config_path('base-module.php'),
 	        ],
 	        'luisj-base-module-config'
 	    );
