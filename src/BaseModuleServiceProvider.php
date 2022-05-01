@@ -23,6 +23,8 @@ class BaseModuleServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadCommands();
+        $this->loadRoutes();
+        $this->loadViews();
     }
 
     private function loadCommands(): void
@@ -35,5 +37,16 @@ class BaseModuleServiceProvider extends ServiceProvider
 	        CreateMailCommand::class,
 	        CreateMailViewCommand::class,
         ]);
+	}
+
+	private function loadRoutes(): void
+	{
+	    $this->loadRoutesFrom(base_path() . '/vendor/luisj/base-module/routes/routes.php');
+	}
+
+	private function loadViews(): void
+	{
+	    $this->loadViewsFrom(base_path() . '/vendor/luisj/base-module/resources/views', 'luisj-create-module');
+
 	}
 }
