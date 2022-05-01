@@ -22,10 +22,21 @@ class BaseModuleServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+    	$this->loadConfig();
         $this->loadCommands();
         $this->loadRoutes();
         $this->loadViews();
     }
+
+    private function loadConfig(): void
+	{
+	    $this->publishes(
+	        [
+	            base_path() . '/vendor/luisj/base-module/config/luisj-base-module.php' => config_path('something.php'),
+	        ],
+	        'luisj-base-module-config'
+	    );
+	}
 
     private function loadCommands(): void
 	{
