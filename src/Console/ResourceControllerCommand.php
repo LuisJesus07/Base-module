@@ -169,16 +169,70 @@ class ResourceControllerCommand extends GeneratorCommand
 #namespace#';
     }
 
+    public function getPermissionsCreateCode()
+    {
+        $ref = $this->argument('ref');
+        $modulo = $this->argument('modulo');
+        $log_plural = $this->argument('log-plural');
+
+        return "Permission::create([
+        'name' => '$ref.get', 
+        'description' => 'Ver $log_plural', 
+        'module' => '$modulo'
+    ]);
+
+    Permission::create([
+        'name' => '$ref.edit', 
+        'description' => 'Editar $log_plural', 
+        'module' => '$modulo'
+    ]);
+
+    Permission::create(['name' => '$ref.add', 
+        'description' => 'Crear $log_plural', 
+        'module' => '$modulo'
+    ]);
+
+    Permission::create(['name' => '$ref.delete', 
+        'description' => 'Eliminar $log_plural', 
+        'module' => '$modulo'
+    ]);
+
+    #permissionsCreate#";
+    
+    }
+
+    public function getPermissions()
+    {
+        $ref = $this->argument('ref');
+
+        return "'$ref.get',
+    '$ref.edit',
+    '$ref.add',
+    '$ref.delete',
+
+    #permissions#";
+    }
+
     public function overwriteFiles()
     {
+        //rutas
         $controller = chr(92).$this->argument('name');
         $routes = $this->getRoutes($controller);
         $namespace = $this->getNamespaceString($controller);
 
-        $content = file_get_contents(base_path() . '/routes/web.php');
-        $content = str_replace('#namespace#', $namespace, $content);
-        $content = str_replace('#routes#', $routes, $content);
-        file_put_contents(base_path() . '/routes/web.php', $content);
+        $routes_file = file_get_contents(base_path() . '/routes/web.php');
+        $routes_file = str_replace('#namespace#', $namespace, $routes_file);
+        $routes_file = str_replace('#routes#', $routes, $routes_file);
+
+        //permisos
+        $permissions_create_code = $this->getPermissionsCreateCode();
+        $permissions = $this->getPermissions();
+
+        $permissions_file = file_get_contents(base_path() . '/database/seeders/PermissionsSeeder.php');
+        $permissions_file = str_replace('#permissionsCreate#', $permissions_create_code, $permissions_file);
+        $permissions_file = str_replace('#permissions#', $permissions, $permissions_file);
+
+        file_put_contents(base_path() . '/routes/web.php', $routes_file);
     }
 
 }
