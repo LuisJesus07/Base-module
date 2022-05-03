@@ -145,10 +145,6 @@ class ResourseController extends Controller
         return $this->jsonResponse("Registro Eliminado correctamente", null, Response::HTTP_OK, null);
     }
 
-    {{belongs_to_many_functions}}
-
-    ////////////////////////rutas y permisos(copiar y borrar)
-
     //{{log-plural}}
     Permission::create([
         'name' => '{{ref}}.get', 
@@ -176,17 +172,5 @@ class ResourseController extends Controller
     '{{ref}}.edit',
     '{{ref}}.add',
     '{{ref}}.delete',
-
-    use App\Http\Controllers\Web\{{model}}Controller;
-    
-    //rutas {{log-plural}}
-    Route::get('{{route}}', [{{model}}Controller::class, 'index'])->middleware('permission:{{ref}}.get')->name('{{route}}');
-    Route::post('{{route}}', [{{model}}Controller::class, 'store'])->middleware('permission:{{ref}}.add')->name('{{route}}.store');
-    Route::get('{{route}}/{id}', [{{model}}Controller::class, 'show'])->middleware('permission:{{ref}}.get')->name('{{route}}.show');
-    Route::get('{{route}}/get/{id}', [{{model}}Controller::class, 'get'])->middleware('permission:{{ref}}.get')->name('{{route}}.get');
-    Route::put('{{route}}', [{{model}}Controller::class, 'update'])->middleware('permission:{{ref}}.edit')->name('{{route}}.edit');
-    Route::delete('{{route}}/{id}', [{{model}}Controller::class, 'destroy'])->middleware('permission:{{ref}}.delete')->name('{{route}}.destroy');
-
-    ////////////////////////rutas y permisos(copiar y borrar)
 
 }
