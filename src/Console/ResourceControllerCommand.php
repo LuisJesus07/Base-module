@@ -69,6 +69,9 @@ class ResourceControllerCommand extends GeneratorCommand
         $stub = str_replace('{{route}}', $this->argument('route'), $stub);
         $stub = str_replace('{{folder-view}}', $this->argument('folder-view'), $stub);
 
+        //sobrescribir archivos
+        $this->overwriteFiles();
+
         return $this;
     }
 
@@ -144,6 +147,37 @@ class ResourceControllerCommand extends GeneratorCommand
     public function belongs_to_many_functions()
     {
         return null;
+    }
+
+    public function getRoutes($controller)
+    {
+        $route = $this->argument('route');
+
+        return "Route::get('$route', [$controller::class, 'index'])->middleware('permission:$route.get')->name('$route');
+            Route::post('$route', [$controller::class, 'store'])->middleware('permission:$route.add')->name('$route.store');
+            Route::get('$route/{id}', [$controller::class, 'show'])->middleware('permission:lots.get')->name('$route.show');
+            Route::get('$route/get/{id}', [$controller::class, 'get'])->middleware('permission:$route.get')->name('$route.get');
+            Route::put('$route', [$controller::class, 'update'])->middleware('permission:$route.edit')->name('$route.edit');
+            Route::delete('$route/{id}', [$controller::class, 'destroy'])->middleware('permission:$route.delete')->name('$route.destroy');
+            #routes#";
+    }
+
+    public function getNamespaceString($controller)
+    {
+        return 'App\Http\Controllers\Web\$controller
+        #namespace#';
+    }
+
+    public function overwriteFiles()
+    {
+        $controller = $this->argument('name');
+        $routes = $this->getRoutes($controller);
+        $namespace = $this->getNamespaceString();
+
+        $content = file_get_contents(base_path() . '/routes/web.php');
+        $content = str_replace('#namespace#', $namespace, $content);
+        $content = str_replace('#routes#', $routes, $content);
+        file_put_contents(base_path() . '/routes/web.php', $content);
     }
 
 }
