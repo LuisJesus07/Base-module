@@ -163,8 +163,10 @@ class ResourceControllerCommand extends GeneratorCommand
     #routes#";
     }
 
-    public function getNamespaceString($controller)
+    public function getNamespaceString()
     {
+        $controller = $this->argument('name');
+
         return 'use App\Http\Controllers\Web'.$controller.';
 #namespace#';
     }
@@ -218,7 +220,7 @@ class ResourceControllerCommand extends GeneratorCommand
         //rutas
         $controller = chr(92).$this->argument('name');
         $routes = $this->getRoutes($controller);
-        $namespace = $this->getNamespaceString($controller);
+        $namespace = $this->getNamespaceString();
 
         $routes_file = file_get_contents(base_path() . '/routes/web.php');
         $routes_file = str_replace('#namespace#', $namespace, $routes_file);
