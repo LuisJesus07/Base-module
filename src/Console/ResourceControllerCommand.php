@@ -152,6 +152,7 @@ class ResourceControllerCommand extends GeneratorCommand
     public function getRoutes($controller)
     {
         $route = $this->argument('route');
+        $controller = $this->argument('name');
 
         return "Route::get('$route', [$controller::class, 'index'])->middleware('permission:$route.get')->name('$route');
     Route::post('$route', [$controller::class, 'store'])->middleware('permission:$route.add')->name('$route.store');
@@ -165,7 +166,7 @@ class ResourceControllerCommand extends GeneratorCommand
 
     public function getNamespaceString()
     {
-        $controller = $this->argument('name');
+        $controller = chr(92).$this->argument('name');
 
         return 'use App\Http\Controllers\Web'.$controller.';
 #namespace#';
@@ -226,8 +227,7 @@ class ResourceControllerCommand extends GeneratorCommand
     public function overwriteFiles()
     {
         //rutas
-        $controller = chr(92).$this->argument('name');
-        $routes = $this->getRoutes($controller);
+        $routes = $this->getRoutes();
         $namespace = $this->getNamespaceString();
 
         $routes_file = file_get_contents(base_path() . '/routes/web.php');
