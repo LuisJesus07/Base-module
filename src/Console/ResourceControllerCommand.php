@@ -215,6 +215,14 @@ class ResourceControllerCommand extends GeneratorCommand
             #permissions#";
     }
 
+    public function getSeeder()
+    {
+        $model = $this->argument('model');
+
+        return $model."Seeder::class,
+            #seeder#";
+    }
+
     public function overwriteFiles()
     {
         //rutas
@@ -234,8 +242,15 @@ class ResourceControllerCommand extends GeneratorCommand
         $permissions_file = str_replace('#permissionsCreate#', $permissions_create_code, $permissions_file);
         $permissions_file = str_replace('#permissions#', $permissions, $permissions_file);
 
+        //database seeder
+        $seeder_file = file_get_contents(base_path() . '/database/seeders/DatabaseSeeder.php');
+        $seeder = $this->getSeeder();
+        $seeder_file = str_replace('#seeder#', $seeder, $seeder_file);
+
+        //sobreescribir archivods
         file_put_contents(base_path() . '/routes/web.php', $routes_file);
         file_put_contents(base_path() . '/database/seeders/PermissionsSeeder.php', $permissions_file);
+        file_put_contents(base_path() . '/database/seeders/DatabaseSeeder.php', $seeder_file);
     }
 
 }
