@@ -143,36 +143,7 @@ class ResourceControllerCommand extends GeneratorCommand
 
     public function belongs_to_many_functions()
     {
-        return '
-    public function add_{{model_to_attach}}s(Request $request)
-    {
-        ${{var-singular}} = {{model}}::select('.chr(39).'id'.chr(39).')
-                     ->where('.chr(39).'id'.chr(39).',$request->id)
-                     ->firstOrFail();
-
-        ${{var-singular}}->{{relation}}()->attach($request->{{model_to_attach}}_ids, [
-            '.chr(39).'created_at'.chr(39).' => now(),
-            '.chr(39).'updated_at'.chr(39).' => now()
-        ]);
-
-        
-        $this->createLog("registrar", ${{var-singular}}, "{{log-singular}}", "{{route}}", ${{var-singular}}->id);
-        return redirect()->back()->with('.chr(39).'success'.chr(39).', '.chr(39).'ok'.chr(39).');
-
-    }
-
-    public function detach_{{model_to_attach}}(${{var-singular}}_id,${{model_to_attach}}_id)
-    {
-        ${{var-singular}} = {{model}}::select('.chr(39).'id'.chr(39).')
-                     ->where('.chr(39).'id'.chr(39).',${{var-singular}}_id)
-                     ->firstOrFail();
-
-        ${{var-singular}}->{{relation}}()->detach(${{model_to_attach}}_id);
-
-        $this->createLog("eliminar", ${{var-singular}}, "{{log-singular}}", "{{route}}", $id);
-        return $this->jsonResponse("Registro Eliminado correctamente", null, Response::HTTP_OK, null);
-
-    }';
+        return null;
     }
 
 }
