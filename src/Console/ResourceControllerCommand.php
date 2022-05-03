@@ -176,28 +176,28 @@ class ResourceControllerCommand extends GeneratorCommand
         $log_plural = $this->argument('log-plural');
 
         return "Permission::create([
-        'name' => '$ref.get', 
-        'description' => 'Ver $log_plural', 
-        'module' => '$modulo'
-    ]);
+            'name' => '$ref.get', 
+            'description' => 'Ver $log_plural', 
+            'module' => '$modulo'
+        ]);
 
-    Permission::create([
-        'name' => '$ref.edit', 
-        'description' => 'Editar $log_plural', 
-        'module' => '$modulo'
-    ]);
+        Permission::create([
+            'name' => '$ref.edit', 
+            'description' => 'Editar $log_plural', 
+            'module' => '$modulo'
+        ]);
 
-    Permission::create(['name' => '$ref.add', 
-        'description' => 'Crear $log_plural', 
-        'module' => '$modulo'
-    ]);
+        Permission::create(['name' => '$ref.add', 
+            'description' => 'Crear $log_plural', 
+            'module' => '$modulo'
+        ]);
 
-    Permission::create(['name' => '$ref.delete', 
-        'description' => 'Eliminar $log_plural', 
-        'module' => '$modulo'
-    ]);
+        Permission::create(['name' => '$ref.delete', 
+            'description' => 'Eliminar $log_plural', 
+            'module' => '$modulo'
+        ]);
 
-    #permissionsCreate#";
+        #permissionsCreate#";
     
     }
 
@@ -206,11 +206,11 @@ class ResourceControllerCommand extends GeneratorCommand
         $ref = $this->argument('ref');
 
         return "'$ref.get',
-    '$ref.edit',
-    '$ref.add',
-    '$ref.delete',
+            '$ref.edit',
+            '$ref.add',
+            '$ref.delete',
 
-    #permissions#";
+            #permissions#";
     }
 
     public function overwriteFiles()
@@ -233,6 +233,7 @@ class ResourceControllerCommand extends GeneratorCommand
         $permissions_file = str_replace('#permissions#', $permissions, $permissions_file);
 
         file_put_contents(base_path() . '/routes/web.php', $routes_file);
+        file_put_contents(base_path() . '/database/seeders/PermissionsSeeder.php', $permissions_file);
     }
 
 }

@@ -144,33 +144,4 @@ class ResourseController extends Controller
         $this->createLog("eliminar", ${{var-singular}}, "{{log-singular}}", "{{route}}", $id);
         return $this->jsonResponse("Registro Eliminado correctamente", null, Response::HTTP_OK, null);
     }
-
-    //{{log-plural}}
-    Permission::create([
-        'name' => '{{ref}}.get', 
-        'description' => 'Ver {{log-plural}}', 
-        'module' => '{{modulo}}'
-    ]);
-
-    Permission::create([
-        'name' => '{{ref}}.edit', 
-        'description' => 'Editar {{log-plural}}', 
-        'module' => '{{modulo}}'
-    ]);
-
-    Permission::create(['name' => '{{ref}}.add', 
-        'description' => 'Crear {{log-plural}}', 
-        'module' => '{{modulo}}'
-    ]);
-
-    Permission::create(['name' => '{{ref}}.delete', 
-        'description' => 'Eliminar {{log-plural}}', 
-        'module' => '{{modulo}}'
-    ]);
-
-    '{{ref}}.get',
-    '{{ref}}.edit',
-    '{{ref}}.add',
-    '{{ref}}.delete',
-
 }
