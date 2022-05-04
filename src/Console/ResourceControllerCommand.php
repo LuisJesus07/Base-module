@@ -149,7 +149,7 @@ class ResourceControllerCommand extends GeneratorCommand
         return null;
     }
 
-    public function getRoutes($controller)
+    public function getRoutes()
     {
         $route = $this->argument('route');
         $controller = $this->argument('name');
@@ -178,24 +178,24 @@ class ResourceControllerCommand extends GeneratorCommand
         $modulo = $this->argument('modulo');
         $log_plural = $this->argument('log-plural');
 
-        return "Permission::create([
+        return "Permission::updateOrCreate([
             'name' => '$ref.get', 
             'description' => 'Ver $log_plural', 
             'module' => '$modulo'
         ]);
 
-        Permission::create([
+        Permission::updateOrCreate([
             'name' => '$ref.edit', 
             'description' => 'Editar $log_plural', 
             'module' => '$modulo'
         ]);
 
-        Permission::create(['name' => '$ref.add', 
+        Permission::updateOrCreate(['name' => '$ref.add', 
             'description' => 'Crear $log_plural', 
             'module' => '$modulo'
         ]);
 
-        Permission::create(['name' => '$ref.delete', 
+        Permission::updateOrCreate(['name' => '$ref.delete', 
             'description' => 'Eliminar $log_plural', 
             'module' => '$modulo'
         ]);
@@ -251,6 +251,9 @@ class ResourceControllerCommand extends GeneratorCommand
         file_put_contents(base_path() . '/routes/web.php', $routes_file);
         file_put_contents(base_path() . '/database/seeders/PermissionsSeeder.php', $permissions_file);
         file_put_contents(base_path() . '/database/seeders/DatabaseSeeder.php', $seeder_file);
+
+        //correr comando para ejecutar PermissionsSeeder
+        Artisan::call('db:seed --class="PermissionsSeeder"');
     }
 
 }
