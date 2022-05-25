@@ -154,14 +154,15 @@ class ResourceControllerCommand extends GeneratorCommand
         $route = $this->argument('route');
         $controller = $this->argument('name');
 
-        return "Route::get('$route', [$controller::class, 'index'])->middleware('permission:$route.get')->name('$route');
-    Route::post('$route', [$controller::class, 'store'])->middleware('permission:$route.add')->name('$route.store');
-    Route::get('$route/{id}', [$controller::class, 'show'])->middleware('permission:lots.get')->name('$route.show');
-    Route::get('$route/get/{id}', [$controller::class, 'get'])->middleware('permission:$route.get')->name('$route.get');
-    Route::put('$route', [$controller::class, 'update'])->middleware('permission:$route.edit')->name('$route.edit');
-    Route::delete('$route/{id}', [$controller::class, 'destroy'])->middleware('permission:$route.delete')->name('$route.destroy');
-    
-    #routes#";
+        return "Route::controller($controller::class)
+    ->group(function () {
+        Route::get('$route','index')->middleware('permission:$route.get')->name('$route');
+        Route::post('$route','store')->middleware('permission:$route.add')->name('$route.store');
+        Route::get('$route/{id}','show')->middleware('permission:$route.get')->name('$route.show');
+        Route::get('$route/get/{id}','get')->middleware('permission:$route.get')->name('$route.get');
+        Route::put('$route','update')->middleware('permission:$route.edit')->name('$route.edit');
+        Route::delete('$route/{id}','delete')->middleware('permission:$route.delete')->name('$route.destroy');
+    });";
     }
 
     public function getNamespaceString()
