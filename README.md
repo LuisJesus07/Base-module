@@ -12,7 +12,7 @@ Asi como tambien un comando para crear una clase mail, con el modelo y su vista 
 ## Instalación
 Instala la libreria con composer:
 ```bash
-composer luisj/base-module
+composer require luisj/base-module
 ```
 Una vez instalada, agrega en el array de providers (config/app.php) la clase:
 ```php
