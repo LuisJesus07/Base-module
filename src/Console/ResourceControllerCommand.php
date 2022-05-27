@@ -221,8 +221,8 @@ class ResourceControllerCommand extends GeneratorCommand
     {
         $model = $this->argument('model');
 
-        return $model."Seeder::class,
-            #seeder#";
+        return '$this->call('.$model."Seeder::class);
+        #seeder#";
     }
 
     public function overwriteFiles()
