@@ -31,6 +31,12 @@ este status puede tener los siguientes valores
 1. active (para tener disponible la libreria)
 2. inactive (para desactivar la libreria)
 
+## Libreria extra
+Se nesesita instalar Doctrine DBAL para que la libreria funcione
+```bash
+composer require doctrine/dbal
+```
+
 ## Instrucciones de uso
 El primero paso es crear la migracion de tu modulo. ejemplo:
 
