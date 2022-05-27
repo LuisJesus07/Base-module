@@ -162,7 +162,9 @@ class ResourceControllerCommand extends GeneratorCommand
         Route::get('$route/get/{id}','get')->middleware('permission:$route.get')->name('$route.get');
         Route::put('$route','update')->middleware('permission:$route.edit')->name('$route.edit');
         Route::delete('$route/{id}','delete')->middleware('permission:$route.delete')->name('$route.destroy');
-    });";
+    });
+    
+    #routes#";
     }
 
     public function getNamespaceString()
