@@ -175,6 +175,12 @@ class CreateFactoryCommand extends GeneratorCommand
             return $model."::all()->random()->id,";
         }
 
+        if($type == "time"){
+            return "0".rand(1,9).":00:00,";
+        }
+
+        return ",";
+
     }
 
     public function dashesToCamelCase($string, $capitalizeFirstCharacter = true)
