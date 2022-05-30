@@ -176,7 +176,7 @@ class CreateFactoryCommand extends GeneratorCommand
         }
 
         if($type == "time"){
-            return "0".rand(1,9).":00:00,";
+            return chr(34)."0".rand(1,9).":00:00".chr(34).",";
         }
 
         return ",";
