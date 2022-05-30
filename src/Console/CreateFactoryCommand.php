@@ -170,7 +170,7 @@ class CreateFactoryCommand extends GeneratorCommand
         if($type == "bigint"){
             $campo = explode("_", $field);
             unset($campo[array_search("id", $campo)]);
-            $model = Helper::dashesToCamelCase(implode("_", $campo));
+            $model = $this->dashesToCamelCase(implode("_", $campo));
 
             return $model."::all()->random()->id,";
         }

@@ -255,8 +255,10 @@ class ResourceControllerCommand extends GeneratorCommand
         file_put_contents(base_path() . '/database/seeders/PermissionsSeeder.php', $permissions_file);
         file_put_contents(base_path() . '/database/seeders/DatabaseSeeder.php', $seeder_file);
 
-        //correr comando para ejecutar PermissionsSeeder
+        //correr comando para ejecutar PermissionsSeeder y seeder agregado
         Artisan::call('db:seed --class="PermissionsSeeder"');
+        Artisan::call('db:seed --class="'.$this->argument('model').'Seeder"');
+        
     }
 
 }
